@@ -1,2 +1,3 @@
 ---
-dependencies: []
+dependencies:
+- { role: 'git+https://github.com/Neutrollized/cis-windows-level1' }
