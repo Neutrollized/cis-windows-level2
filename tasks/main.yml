@@ -1,0 +1,48 @@
+---
+# tasks file for cis-windows-level2
+
+- name: CIS-L1 Security Policy rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 01-SecurityPolicies
+
+- name: CIS-L1 Local Authentication rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 02-LocalAuth
+
+- name: CIS-L2 Local Authentication rules
+  import_tasks: 02-LocalAuth.yml
+
+- name: CIS-L1 Firewall Policy rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 09-FirewallPolicies
+
+- name: CIS-L1 Audit Policy rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 17-AuditPolicies
+
+- name: CIS-L1 System Policy rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 18-SystemPolicies
+
+- name: CIS-L2 System Policy rules
+  import_tasks: 18-SystemPolicies.yml
+
+- name: CIS-L1 User Rights rules
+  include_role:
+    name: cis-windows-level1
+    tasks_from: 02-UserRights
+
+# HKU won't allow new registry paths to be created in the root folder
+# https://docs.ansible.com/ansible/devel/modules/win_regedit_module.html#notes
+#- name: CIS-L1 HKEY_USER Registry rules
+#  include_role:
+#    name: cis-windows-level1
+#    tasks_from: 19-HKUreg
+
+#- name: CIS-L2 HKEY_USER Registry rules
+#  import_tasks: 19-HKUreg.yml

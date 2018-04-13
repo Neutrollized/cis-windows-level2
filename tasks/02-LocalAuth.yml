@@ -1,0 +1,10 @@
+---
+- name: LSA
+  win_regedit:
+    path: 'HKLM:\System\CurrentControlSet\Control\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 2.3.10.4, path: Lsa, name: DisableDomainCreds, data: 1, type: dword }

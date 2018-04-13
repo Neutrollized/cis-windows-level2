@@ -1,0 +1,229 @@
+---
+- name: TCP/IP Parameters
+  win_regedit:
+    path: 'HKLM:\System\CurrentControlSet\Services\{{ item.path }}\Parameters'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.3.5, path: Tcpip, name: KeepAliveTime, data: 300000, type: dword }
+  - { rule: 18.3.7, path: Tcpip, name: PerformRouterDiscovery, data: 0, type: dword }
+  - { rule: 18.3.10, path: TCPIP6, name: tcpmaxdataretransmissions, data: 3, type: dword }
+  - { rule: 18.3.11, path: Tcpip, name: tcpmaxdataretransmissions, data: 3, type: dword }
+
+- name: LLTD
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows\LLTD'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.4.9.1, name: AllowLLTDIOOndomain, data: 0, type: dword }
+  - { rule: 18.4.9.1, name: AllowLLTDIOOnPublicNet, data: 0, type: dword }
+  - { rule: 18.4.9.1, name: EnableLLTDIO, data: 0, type: dword }
+  - { rule: 18.4.9.1, name: ProhibitLLTDIOOnPrivateNet, data: 0, type: dword }
+  - { rule: 18.4.9.2, name: AllowRspndrOndomain, data: 0, type: dword }
+  - { rule: 18.4.9.2, name: AllowRspndrOnPublicNet, data: 0, type: dword }
+  - { rule: 18.4.9.2, name: EnableRspndr, data: 0, type: dword }
+  - { rule: 18.4.9.2, name: ProhibitRspndrOnPrivateNet, data: 0, type: dword }
+
+- name: Software Policies Microsoft
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.4.10.2, path: Peernet, name: Disabled, data: 1, type: dword }
+  - { rule: 18.8.20.1.9, path: SearchCompanion, name: DisableContentFileUpdates, data: 1, type: dword }
+  - { rule: 18.8.20.1.12, path: 'Messenger\Client', name: CEIP, data: 2, type: dword }
+  - { rule: 18.8.20.1.13, path: 'SQMClient\Windows', name: CEIPEnable, data: 0, type: dword }
+
+- name: TCP/IP Parameters
+  win_regedit:
+    path: 'HKLM:\SYSTEM\CurrentControlSet\Services\{{ item.path }}\Parameters'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.4.19.2.1, path: TCPIP6, name: DisabledComponents, data: 255, type: dword }
+
+- name: WCN Registrars
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows\WCN\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.4.20.1, path: Registrars, name: EnableRegistrars, data: 0, type: dword }
+  - { rule: 18.4.20.1, path: Registrars, name: DisableUPnPRegistrar, data: 0, type: dword }
+  - { rule: 18.4.20.1, path: Registrars, name: DisableInBand802DOT11Registrar, data: 0, type: dword }
+  - { rule: 18.4.20.1, path: Registrars, name: DisableFlashConfigRegistrar, data: 0, type: dword }
+  - { rule: 18.4.20.1, path: Registrars, name: DisableWPDRegistrar, data: 0, type: dword }
+  - { rule: 18.4.20.2, path: UI, name: DisableWcnUI, data: 1, type: dword }
+
+- name: Group Policy
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows\WcmSvc\GroupPolicy'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.4.21.2, name: fBlockNonDomain, data: 1, type: dword }
+
+- name: Explorer
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.20.1.1, name: NoUseStoreOpenWith, data: 1, type: dword }
+
+- name: Software Policies Microsoft Windows NT
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows NT\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.20.1.7, path: Printers, name: DisableWebPnPDownload, data: 1, type: dword }
+  - { rule: 18.8.20.1.2, path: Printers, name: DisableHTTPPrinting, data: 1, type: dword }
+  - { rule: 18.8.32.2, path: Rpc, name: RestrictRemoteClients, data: 1, type: dword }
+
+- name: Software Policies Microsoft Windows
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.20.1.3, path: TabletPC, name: PreventHandwritingDataSharing, data: 1, type: dword }
+  - { rule: 18.8.20.1.4, path: HandwritingErrorReports, name: PreventHandwritingErrorReports, data: 1, type: dword }
+  - { rule: 18.8.20.1.5, path: 'Internet Connection Wizard', name: ExitOnMSICW, data: 1, type: dword }
+  - { rule: 18.8.20.1.8, path: 'Registration Wizard Control', name: NoRegistration, data: 1, type: dword }
+  - { rule: 18.8.20.1.14, path: 'Windows Error Reporting', name: Disabled, data: 1, type: dword }
+  - { rule: 18.8.39.11.1, path: 'WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}', name: ScenarioExecutionEnabled, data: 0, type: dword }
+  - { rule: 18.9.74.3, path: Installer, name: SafeForScripting, data: 0, type: dword }
+
+- name: Explorer Policies
+  win_regedit:
+    path: 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.20.1.6, name: NoWebServices, data: 1, type: dword }
+  - { rule: 18.8.20.1.10, name: NoOnlinePrintsWizard, data: 1, type: dword }
+  - { rule: 18.8.20.1.11, name: NoPublishingWizard, data: 1, type: dword }
+
+- name: Control Panel
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Control Panel\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.24.1, path: International, name: BlockUserInputMethodsForSignIn, data: 1, type: dword }
+
+- name: Power Settings
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.29.5.1, name: DCSettingIndex, data: 1, type: dword }
+  - { rule: 18.8.29.5.1, name: ACSettingIndex, data: 1, type: dword }
+
+- name: SOFTWARE Policies Microsoft Windows
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.39.5.1, path: ScriptedDiagnosticsProvider\Policy, name: DisableQueryRemoteServer, data: 0, type: dword }
+  - { rule: 18.8.41.1, path: AdvertisingInfo, name: DisabledByGroupPolicy, data: 1, type: dword }
+  - { rule: 18.9.37.1, path: LocationAndSensors, name: DisableLocation, data: 1, type: dword }
+  - { rule: 18.9.54.3, path: 'Windows Search', name: ConnectedSearchPrivacy, data: 3, type: dword }
+
+- name: W32Time
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.8.44.1.1, path: NtpClient, name: Enabled, data: 1, type: dword }
+  - { rule: 18.8.44.1.2, path: NtpServer, name: Enabled, data: 0, type: dword }
+
+- name: Terminal Services
+  win_regedit:
+    path: 'HKLM:\{{ item.path }}\Policies\Microsoft\Windows NT\Terminal Services'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.9.52.3.2.1, path: Software, name: fSingleSessionPerUser, data: 1, type: dword }
+  - { rule: 18.9.52.3.3.1, path: Software, name: fDisableCcm, data: 1, type: dword }
+  - { rule: 18.9.52.3.3.3, path: SOFTWARE, name: fDisableLPT, data: 1, type: dword }
+  - { rule: 18.9.52.3.3.4, path: SOFTWARE, name: fDisablePNPRedir, data: 1, type: dword }
+  - { rule: 18.9.52.3.10.1, path: SOFTWARE, name: MaxIdleTime, data: 900000, type: dword }
+  - { rule: 18.9.52.3.10.2, path: SOFTWARE, name: MaxDisconnectionTime, data: 60000, type: dword }
+
+- name: Windows NT Current Version
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.9.59.1, name: NoGenTicket, data: 1, type: dword }
+
+- name: SOFTWARE Policies Microsoft
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.9.61.3, path: WindowsStore, name: RemoveWindowsStore, data: 1, type: dword }
+
+- name: Windows Defender
+  win_regedit:
+    path: 'HKLM:\Software\Microsoft\Windows Defender\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.9.69.3.1, path: Spynet, name: SpynetReporting, data: 0, type: dword }
+
+- name: WinRM
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\{{ item.path }}'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 18.9.86.2.2, path: Service, name: AllowAutoConfig, data: 0, type: dword }
+  - { rule: 18.9.87.1, path: 'Service\WinRS', name: AllowRemoteShellAccess, data: 0, type: dword }

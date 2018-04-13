@@ -1,0 +1,20 @@
+---
+- name: Assistance Client 1.0
+  win_regedit:
+    path: 'HKU:\S-1-5-21-3273742526-1292064323-978876264-500\Software\Policies\Microsoft\Assistance\Client\1.0'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 19.6.5.1.1, name: NoImplicitFeedback, data: 1, type: dword }
+
+- name: Windows Media Player
+  win_regedit:
+    path: 'HKU:\S-1-5-21-3273742526-1292064323-978876264-500\Software\Policies\Microsoft\WindowsMediaPlayer'
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: "{{ item.type }}"
+    state: present
+  with_items:
+  - { rule: 19.7.43.2.1, name: PreventCodecDownload, data: 0, type: dword }
