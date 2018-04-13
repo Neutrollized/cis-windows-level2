@@ -16,7 +16,11 @@ There's plenty of room for optimizing and consolidating regedits, etc.
 
 Requires Ansible 2.5+ as the `win_audit_policy_system` module is required and it's new in 2.5
 
-You will need to pull the [cis-windows-level1](https://github.com/Neutrollized/cis-windows-level1) role to the same location as this builds on top of CIS Level 1 and calls `include_role` and `tasks_from`
+
+## Dependencies
+
+[cis-windows-level1](https://github.com/Neutrollized/cis-windows-level1) role
+
 
 ## Notes & Rule Omittance
 
