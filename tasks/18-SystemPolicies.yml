@@ -95,8 +95,8 @@
     type: "{{ item.type }}"
     state: present
   with_items:
-  - { rule: 18.8.20.1.7, path: Printers, name: DisableWebPnPDownload, data: 1, type: dword }
-  - { rule: 18.8.20.1.2, path: Printers, name: DisableHTTPPrinting, data: 1, type: dword }
+  - { rule: 18.8.20.1.2, path: Printers, name: DisableWebPnPDownload, data: 1, type: dword }
+  - { rule: 18.8.20.1.7, path: Printers, name: DisableHTTPPrinting, data: 1, type: dword }
   - { rule: 18.8.32.2, path: Rpc, name: RestrictRemoteClients, data: 1, type: dword }
 
 - name: Software Policies Microsoft Windows
