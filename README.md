@@ -16,6 +16,8 @@ There's plenty of room for optimizing and consolidating regedits, etc.
 
 Requires Ansible 2.5+ as the `win_audit_policy_system` module is required and it's new in 2.5
 
+You'll need to pull the cis-windows-level1 role first using `ansible-galaxy install -r requirements.yml -p ../.`
+
 
 ## Dependencies
 
