@@ -156,7 +156,7 @@
     type: "{{ item.type }}"
     state: present
   with_items:
-  - { rule: 18.8.39.5.1, path: ScriptedDiagnosticsProvider\Policy, name: DisableQueryRemoteServer, data: 0, type: dword }
+  - { rule: 18.8.39.5.1, path: 'ScriptedDiagnosticsProvider\Policy', name: DisableQueryRemoteServer, data: 0, type: dword }
   - { rule: 18.8.41.1, path: AdvertisingInfo, name: DisabledByGroupPolicy, data: 1, type: dword }
   - { rule: 18.9.37.1, path: LocationAndSensors, name: DisableLocation, data: 1, type: dword }
   - { rule: 18.9.54.3, path: 'Windows Search', name: ConnectedSearchPrivacy, data: 3, type: dword }
